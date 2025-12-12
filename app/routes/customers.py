@@ -8,14 +8,7 @@ router = APIRouter()
 
 @router.get("/{customer_id}/summary", response_model=Summary)
 def get_customer_summary(customer_id: int):
-    """
-    Get transaction summary for a specific customer.
-
-    Returns:
-    - customer_id: The customer identifier
-    - total_transactions: Number of transactions for the customer
-    - total_amount: Sum of all transaction amounts
-    """
+    """Get transaction count and total amount for a customer."""
     # Find all transactions for the specific customer
     customer_transactions = [
         transaction

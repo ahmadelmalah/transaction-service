@@ -7,7 +7,6 @@ app = FastAPI()
 # Basic health check endpoint
 @app.get("/")
 def read_root():
-    """Health check endpoint"""
     return {"message": "It Works!"}
 
 

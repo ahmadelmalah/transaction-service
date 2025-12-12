@@ -13,13 +13,7 @@ def get_transactions(
     customer_id: Optional[int] = None,
     limit: int = Query(default=100, gt=0, le=1000),
 ):
-    """
-    Get a list of transactions with optional filtering.
-
-    - **status**: Filter by transaction status (completed, pending, failed)
-    - **customer_id**: Filter by customer ID
-    - **limit**: Maximum number of results to return (1-1000)
-    """
+    """Retrieve transactions with optional filtering by status, customer_id, and limit."""
     filtered_transactions = TRANSACTIONS
 
     # Filter by status if provided

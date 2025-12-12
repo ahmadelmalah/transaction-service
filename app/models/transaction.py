@@ -3,13 +3,16 @@ from pydantic import BaseModel
 
 
 class TransactionStatus(str, Enum):
-    """Enum for valid transaction statuses."""
+    """Enum for valid transaction status values."""
+
     COMPLETED = "completed"
     PENDING = "pending"
     FAILED = "failed"
 
 
 class Transaction(BaseModel):
+    """Represents a financial transaction."""
+
     id: int
     customer_id: int
     amount: float
