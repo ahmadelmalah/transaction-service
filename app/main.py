@@ -8,11 +8,13 @@ from app.data.mock_data import TRANSACTIONS
 app = FastAPI()
 
 
+# Basic health check endpoint
 @app.get("/")
 def read_root():
     return {"It": "Works!"}
 
 
+# Endpoint to get transactions with optional filtering
 @app.get("/transactions/", response_model=List[Transaction])
 def get_transactions(
     status: Optional[str] = None,
@@ -42,6 +44,7 @@ def get_transactions(
     return filtered_transactions[:limit]
 
 
+# Endpoint to get summary for a specific customer
 @app.get("/customers/{customer_id}/summary", response_model=Summary)
 def get_customer_summary(customer_id: int):
     # Find all transactions for the specific customer
