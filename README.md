@@ -268,5 +268,5 @@ Main packages:
 - **Uvicorn** (0.38.0) – ASGI server
 - **Pydantic** (2.12.5) – Data validation
 - **pytest** (9.0.2) – Testing
+- **httpx** (0.28.1) – HTTP client for testing
 
-See `requirements.txt` for the complete list.
