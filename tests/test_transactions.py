@@ -82,7 +82,6 @@ def test_list_transactions_all_filters():
 
 # Edge case tests
 def test_list_transactions_nonexistent_status():
-    # Non-existent status filter returns empty list
+    # Non-existent status should be rejected with 422 (validation error)
     response = client.get("/transactions?status=nonexistent")
-    assert response.status_code == 200
-    assert len(response.json()) == 0
+    assert response.status_code == 422

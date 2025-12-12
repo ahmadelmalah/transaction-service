@@ -1,7 +1,7 @@
 # app/routes/transactions.py
 from fastapi import APIRouter, Query
 from typing import List, Optional
-from app.models.transaction import Transaction
+from app.models.transaction import Transaction, TransactionStatus
 from app.data.mock_data import TRANSACTIONS
 
 router = APIRouter()
@@ -9,7 +9,7 @@ router = APIRouter()
 
 @router.get("/", response_model=List[Transaction])
 def get_transactions(
-    status: Optional[str] = None,
+    status: Optional[TransactionStatus] = None,
     customer_id: Optional[int] = None,
     limit: int = Query(default=100, gt=0, le=1000),
 ):
