@@ -1,11 +1,9 @@
 # Transaction Service
 
 ![Python](https://img.shields.io/badge/python-3.10+-blue.svg)
-![FastAPI](https://img.shields.io/badge/FastAPI-0.124.4-green.svg)
 ![Tests](https://img.shields.io/badge/tests-15%20passed-success.svg)
-![Code Style](https://img.shields.io/badge/code%20style-type--safe-brightgreen.svg)
 
-A production-ready FastAPI-based REST API service for managing and querying financial transactions and customer summaries. Built as an interview assessment demonstrating clean architecture, comprehensive testing, and modern Python development practices.
+A FastAPI-based REST API service for managing and querying financial transactions and customer summaries. Built as an interview assessment demonstrating clean architecture, comprehensive testing, and modern Python development practices.
 
 ---
 
@@ -451,8 +449,5 @@ For a production deployment, the following enhancements would be essential:
 ### Additional Features
 - **Transaction Creation**: `POST /transactions` endpoint
 - **Transaction Updates**: `PATCH /transactions/{id}` for status updates
-- **Transaction Cancellation**: Status transition management
-- **Currency Conversion**: Multi-currency support with exchange rates
 - **Date Range Filtering**: Filter transactions by date range
-- **Advanced Search**: Full-text search capabilities
 
