@@ -1,7 +1,6 @@
-from typing import Union
-
-from fastapi import FastAPI
+from fastapi import FastAPI, Query
 from pydantic import BaseModel
+from typing import List, Optional
 
 app = FastAPI()
 
@@ -38,16 +37,43 @@ TRANSACTIONS = [
 ]
 
 
+class Transaction(BaseModel):
+    id: int
+    customer_id: int
+    amount: float
+    currency: str
+    status: str
+
+
 @app.get("/")
 def read_root():
     return {"It": "Works!"}
 
 
-@app.get("/transactions/")
-def get_transactions(customer_id: Union[int, None] = None):
+@app.get("/transactions/", response_model=List[Transaction])
+def get_transactions(
+    status: Optional[str] = None,
+    customer_id: Optional[int] = None,
+    # Limit cap: enforce sensible bounds (e.g., 1 to 1000)
+    limit: int = Query(default=100, gt=0, le=1000),
+):
+    filtered_transactions = TRANSACTIONS
+
+    # Filter by status if provided
+    if status is not None:
+        filtered_transactions = [
+            transaction
+            for transaction in filtered_transactions
+            if transaction["status"] == status
+        ]
+
+    # Filter by customer_id if provided
     if customer_id is not None:
         filtered_transactions = [
-            tx for tx in TRANSACTIONS if tx["customer_id"] == customer_id
+            transaction
+            for transaction in filtered_transactions
+            if transaction["customer_id"] == customer_id
         ]
-        return {"transactions": filtered_transactions}
-    return {"transactions": TRANSACTIONS}
+
+    # Apply limit and return results
+    return filtered_transactions[:limit]
