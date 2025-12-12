@@ -1,5 +1,12 @@
+import logging
 from fastapi import FastAPI
 from app.routes import transactions, customers
+
+# Configure logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(levelname)s: %(message)s'
+)
 
 app = FastAPI()
 

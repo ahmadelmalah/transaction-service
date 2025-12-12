@@ -1,2 +1,12 @@
-/myenv
+# Virtual environments
+myenv/
+venv/
+env/
+
+# Python
 *.pyc
+__pycache__/
+*.py[cod]
+
+# Testing
+.pytest_cache/

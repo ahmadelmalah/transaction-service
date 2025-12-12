@@ -1,9 +1,11 @@
 # app/routes/transactions.py
+import logging
 from fastapi import APIRouter, Query
 from typing import List, Optional
 from app.models.transaction import Transaction, TransactionStatus
 from app.data.mock_data import TRANSACTIONS
 
+logger = logging.getLogger(__name__)
 router = APIRouter()
 
 
@@ -14,6 +16,7 @@ def get_transactions(
     limit: int = Query(default=100, gt=0, le=1000),
 ):
     """Retrieve transactions with optional filtering by status, customer_id, and limit."""
+    logger.info(f"Fetching transactions: status={status}, customer_id={customer_id}, limit={limit}")
     filtered_transactions = TRANSACTIONS
 
     # Filter by status if provided

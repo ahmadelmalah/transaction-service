@@ -1,14 +1,17 @@
 # app/routes/customers.py
+import logging
 from fastapi import APIRouter, HTTPException
 from app.models.summary import Summary
 from app.data.mock_data import TRANSACTIONS
 
+logger = logging.getLogger(__name__)
 router = APIRouter()
 
 
 @router.get("/{customer_id}/summary", response_model=Summary)
 def get_customer_summary(customer_id: int):
     """Get transaction count and total amount for a customer."""
+    logger.info(f"Fetching summary for customer_id={customer_id}")
     # Find all transactions for the specific customer
     customer_transactions = [
         transaction
@@ -18,6 +21,7 @@ def get_customer_summary(customer_id: int):
 
     # If no transactions exist, return 404
     if not customer_transactions:
+        logger.warning(f"Customer {customer_id} not found or has no transactions")
         raise HTTPException(
             status_code=404,
             detail=f"Customer {customer_id} not found or has no transactions.",
