@@ -1,5 +1,6 @@
 from fastapi import FastAPI, HTTPException, Query
-from pydantic import BaseModel
+from app.models.transaction import Transaction
+from app.models.summary import Summary
 from typing import List, Optional
 
 app = FastAPI()
@@ -37,20 +38,6 @@ TRANSACTIONS = [
 ]
 
 
-class Transaction(BaseModel):
-    id: int
-    customer_id: int
-    amount: float
-    currency: str
-    status: str
-
-
-class CustomerSummary(BaseModel):
-    customer_id: int
-    total_transactions: int
-    total_amount: float
-
-
 @app.get("/")
 def read_root():
     return {"It": "Works!"}
@@ -85,7 +72,7 @@ def get_transactions(
     return filtered_transactions[:limit]
 
 
-@app.get("/customers/{customer_id}/summary", response_model=CustomerSummary)
+@app.get("/customers/{customer_id}/summary", response_model=Summary)
 def get_customer_summary(customer_id: int):
     # Find all transactions for the specific customer
     customer_transactions = [
@@ -105,7 +92,7 @@ def get_customer_summary(customer_id: int):
     total_transactions = len(customer_transactions)
     total_amount = sum(transaction["amount"] for transaction in customer_transactions)
 
-    return CustomerSummary(
+    return Summary(
         customer_id=customer_id,
         total_transactions=total_transactions,
         total_amount=total_amount,
